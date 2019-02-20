@@ -39,3 +39,34 @@ interface Lifecycle<T> {
     fun removeListener(listener: LifecycleListener<T>)
 
 }
+
+/**
+ * Invokes [block] when the [event] occurs
+ */
+fun <T> Lifecycle<T>.doOnEvent(event: T, block: () -> Unit): LifecycleListener<T> {
+    val listener: LifecycleListener<T> = {
+        if (it == event) block()
+    }
+
+    addListener(listener)
+
+    return listener
+}
+
+/**
+ * Invokes [block] the first time the [event] occurs
+ */
+fun <T> Lifecycle<T>.doOnNextEvent(event: T, block: () -> Unit): LifecycleListener<T> {
+    val listener = object : LifecycleListener<T> {
+        override fun invoke(e: T) {
+            if (e == event) {
+                block()
+                removeListener(this)
+            }
+        }
+    }
+
+    addListener(listener)
+
+    return listener
+}
