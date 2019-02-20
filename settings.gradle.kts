@@ -1,0 +1,9 @@
+include(
+    "lifecycle",
+    "lifecycle-android-lifecycle",
+    "lifecycle-common",
+    "lifecycle-coroutines",
+    "lifecycle-livedata",
+    "lifecycle-rx",
+    "sample"
+)
