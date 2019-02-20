@@ -17,7 +17,7 @@
 package com.ivianuu.lifecycle.common
 
 import com.ivianuu.lifecycle.Lifecycle
-import com.ivianuu.lifecycle.LifecycleHolder
+import com.ivianuu.lifecycle.LifecycleOwner
 import java.io.Serializable
 
 private object UNINITIALIZED_VALUE
@@ -84,7 +84,7 @@ fun <E, T> Lifecycle<E>.lifecycleLazy(
 /**
  * Returns a [Lazy] which auto initializes on [event]
  */
-fun <E, T> LifecycleHolder<E>.lifecycleLazy(
+fun <E, T> LifecycleOwner<E>.lifecycleLazy(
     event: E,
     initializer: () -> T
 ) = lifecycle.lifecycleLazy(event, initializer)

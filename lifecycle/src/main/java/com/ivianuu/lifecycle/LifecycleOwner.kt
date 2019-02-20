@@ -19,7 +19,7 @@ package com.ivianuu.lifecycle
 /**
  * A holder for [Lifecycle]s
  */
-interface LifecycleHolder<T> {
+interface LifecycleOwner<T> {
     /**
      * The lifecycle of this component
      */
