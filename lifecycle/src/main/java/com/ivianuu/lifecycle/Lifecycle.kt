@@ -16,6 +16,8 @@
 
 package com.ivianuu.lifecycle
 
+import com.ivianuu.closeable.Closeable
+
 typealias LifecycleListener<T> = (T) -> Unit
 
 /**
@@ -31,7 +33,7 @@ interface Lifecycle<T> {
     /**
      * Notifies the [listener] on any lifecycle event
      */
-    fun addListener(listener: LifecycleListener<T>)
+    fun addListener(listener: LifecycleListener<T>): Closeable
 
     /**
      * Removes the previously added [listener]
@@ -43,20 +45,18 @@ interface Lifecycle<T> {
 /**
  * Invokes [block] when the [event] occurs
  */
-fun <T> Lifecycle<T>.doOnEvent(event: T, block: () -> Unit): LifecycleListener<T> {
+fun <T> Lifecycle<T>.doOnEvent(event: T, block: () -> Unit): Closeable {
     val listener: LifecycleListener<T> = {
         if (it == event) block()
     }
 
-    addListener(listener)
-
-    return listener
+    return addListener(listener)
 }
 
 /**
  * Invokes [block] the first time the [event] occurs
  */
-fun <T> Lifecycle<T>.doOnNextEvent(event: T, block: () -> Unit): LifecycleListener<T> {
+fun <T> Lifecycle<T>.doOnNextEvent(event: T, block: () -> Unit): Closeable {
     val listener = object : LifecycleListener<T> {
         override fun invoke(e: T) {
             if (e == event) {
@@ -66,7 +66,5 @@ fun <T> Lifecycle<T>.doOnNextEvent(event: T, block: () -> Unit): LifecycleListen
         }
     }
 
-    addListener(listener)
-
-    return listener
+    return addListener(listener)
 }

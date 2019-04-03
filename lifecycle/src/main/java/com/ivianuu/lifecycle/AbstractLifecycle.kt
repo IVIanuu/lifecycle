@@ -16,6 +16,7 @@
 
 package com.ivianuu.lifecycle
 
+import com.ivianuu.closeable.Closeable
 import java.util.concurrent.locks.ReentrantLock
 import kotlin.concurrent.withLock
 
@@ -32,11 +33,13 @@ abstract class AbstractLifecycle<T> : Lifecycle<T> {
 
     private val lock = ReentrantLock()
 
-    override fun addListener(listener: LifecycleListener<T>): Unit = lock.withLock {
-        if (listeners.add(listener)) {
-            // dispatch the latest event if available
-            _lastEvent?.let { listener(it) }
-        }
+    override fun addListener(listener: LifecycleListener<T>): Closeable = lock.withLock {
+        listeners.add(listener)
+
+        // dispatch the latest event if available
+        _lastEvent?.let { listener(it) }
+
+        return@withLock Closeable { removeListener(listener) }
     }
 
     override fun removeListener(listener: LifecycleListener<T>): Unit = lock.withLock {

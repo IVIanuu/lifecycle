@@ -16,8 +16,10 @@
 
 package com.ivianuu.lifecycle
 
-import com.ivianuu.lifecycle.TestLifecycle.*
-import org.junit.Assert
+import com.ivianuu.lifecycle.TestLifecycle.CREATE
+import com.ivianuu.lifecycle.TestLifecycle.DESTROY
+import com.ivianuu.lifecycle.TestLifecycle.HIDE
+import com.ivianuu.lifecycle.TestLifecycle.SHOW
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -70,16 +72,6 @@ class MutableLifecycleTest {
 
         lifecycle.onEvent(CREATE)
         assertEquals(emptyList<TestLifecycle>(), listener.history)
-    }
-
-    @Test
-    fun testAddListenerTwice() {
-        val listener = TestLifecycleListener<TestLifecycle>()
-        lifecycle.addListener(listener)
-        lifecycle.addListener(listener)
-
-        lifecycle.onEvent(CREATE)
-        assertEquals(listOf(CREATE), listener.history)
     }
 
     @Test

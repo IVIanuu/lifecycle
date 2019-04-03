@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import com.ivianuu.lifecycle.LifecycleOwner
-import com.ivianuu.lifecycle.android.lifecycle.doOnResume
 import com.ivianuu.lifecycle.android.lifecycle.toLifecycle
+import com.ivianuu.lifecycle.doOnEvent
 
 class MainActivity : AppCompatActivity(), LifecycleOwner<Lifecycle.Event> {
 
@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), LifecycleOwner<Lifecycle.Event> {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        lifecycle.doOnResume { Log.d("testt", "cool resumed") }
+        lifecycle.doOnEvent(Lifecycle.Event.ON_RESUME) { Log.d("testt", "cool resumed") }
 
         lifecycle.addListener { Log.d("testt", "on event $it") }
     }
