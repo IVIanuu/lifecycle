@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-package com.ivianuu.lifecycle.livedata
+package com.ivianuu.lifecycle.coroutines
 
-import androidx.lifecycle.LiveData
 import com.ivianuu.lifecycle.Lifecycle
 import com.ivianuu.lifecycle.LifecycleListener
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowViaChannel
 
 /**
- * A live data for lifecycle events
+ * Emits events of this
  */
-fun <T> Lifecycle<T>.asLiveData(): LiveData<T> {
-    return object : LiveData<T>() {
-
-        private val listener: LifecycleListener<T> = { value = it }
-
-        override fun onActive() {
-            super.onActive()
-            addListener(listener)
-        }
-
-        override fun onInactive() {
-            super.onInactive()
-            removeListener(listener)
-        }
-
-    }
+@FlowPreview
+fun <T> Lifecycle<T>.asFlow(): Flow<T> = flowViaChannel { channel ->
+    val listener: LifecycleListener<T> = { channel.offer(it) }
+    addListener(listener)
+    //todo Remove when invokeOnClose is no longer experimental, or use replacement.
+    channel.invokeOnClose { removeListener(listener) }
 }

@@ -12,11 +12,11 @@ object Build {
 object Publishing {
     const val groupId = "com.ivianuu.lifecycle"
     const val vcsUrl = "https://github.com/IVIanuu/lifecycle"
-    const val version = "${Build.versionName}-dev-2"
+    const val version = "${Build.versionName}-dev-3"
 }
 
 object Versions {
-    const val androidGradlePlugin = "3.3.0"
+    const val androidGradlePlugin = "3.4.0"
 
     const val androidxAppCompat = "1.1.0-alpha04"
     const val androidxLifecycle = "2.1.0-alpha04"
@@ -29,7 +29,7 @@ object Versions {
 
     const val junit = "4.12"
 
-    const val kotlin = "1.3.30"
+    const val kotlin = "1.3.31"
 
     const val mavenGradlePlugin = "2.1"
 

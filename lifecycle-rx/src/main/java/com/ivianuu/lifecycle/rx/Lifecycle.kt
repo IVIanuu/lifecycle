@@ -22,7 +22,7 @@ import io.reactivex.Observable
 /**
  * Emits events of [this]
  */
-fun <T> Lifecycle<T>.observable(): Observable<T> {
+fun <T> Lifecycle<T>.asObservable(): Observable<T> {
     return Observable.create { e ->
         val listener: (T) -> Unit = {
             if (!e.isDisposed) {
