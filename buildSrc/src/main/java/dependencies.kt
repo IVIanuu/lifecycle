@@ -23,7 +23,7 @@ object Versions {
 
     const val bintray = "1.8.4"
 
-    const val closeable = "0.0.1-dev-2"
+    const val closeable = "66e417af"
 
     const val coroutines = "1.2.0"
 
@@ -49,7 +49,7 @@ object Deps {
     const val bintrayGradlePlugin =
         "com.jfrog.bintray.gradle:gradle-bintray-plugin:${Versions.bintray}"
 
-    const val closeable = "com.ivianuu.closeable:closeable:${Versions.closeable}"
+    const val closeable = "com.github.IVIanuu:closeable:${Versions.closeable}"
 
     const val coroutinesCore =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
